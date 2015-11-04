@@ -1,0 +1,24 @@
+{
+  "name": "upcoming-events",
+  "version": "0.0.1",
+  "description": "Neighborhood final project from Udacity.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "udacity",
+    "neighborhood",
+    "events",
+    "google-map"
+  ],
+  "author": "Constantine Golub",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-jade": "^0.15.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-sass": "^0.9.2",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

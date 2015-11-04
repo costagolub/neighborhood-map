@@ -1,0 +1,34 @@
+{
+  "name": "upcoming-events",
+  "version": "0.0.1",
+  "authors": [
+    "Constantine Golub <constantinegolub@gmail.com>"
+  ],
+  "description": "Neighborhood final project from Udacity",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "es6"
+  ],
+  "keywords": [
+    "neighborhood",
+    "google-map",
+    "udacity",
+    "events"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "~3.3.0",
+    "requirejs": "~2.1.20",
+    "requirejs-plugins": "~1.0.3",
+    "Materialize": "materialize#~0.97.1"
+  }
+}

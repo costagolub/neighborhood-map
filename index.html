@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upcoming Events</title>
+    <link href="bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet">
+    <link href="dest/css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="panel">
+      <div class="search">
+        <input type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search">
+        <button type="submit" name="action" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findEvents}" class="btn waves-effect waves-light"></button>
+      </div>
+    </div>
+    <div class="map-container">
+      <div id="map" class="map"></div>
+    </div>
+    <script data-main="app/js/config" src="bower_components/requirejs/require.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
+  </body>
+</html>
