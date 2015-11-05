@@ -2,18 +2,27 @@
 <html>
   <head>
     <title>Upcoming Events</title>
-    <link href="bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet">
     <link href="dest/css/main.css" rel="stylesheet">
   </head>
   <body>
-    <div class="panel">
+    <nav role="navigation" class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
       <div class="search">
-        <input type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search">
-        <button type="submit" name="action" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findEvents}" class="btn waves-effect waves-light"></button>
+        <form>
+          <div class="form-group">
+            <input type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search" class="form-control">
+          </div>
+          <button type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findAndSave}" class="btn btn-default"></button>
+        </form>
       </div>
-    </div>
-    <div class="map-container">
-      <div id="map" class="map"></div>
+      <div data-bind="foreach: events" class="list-group events"><a class="list-group-item"><span data-bind="if: logo" class="img-wrap"><img data-bind="attr: {src: logo.url}"></span>
+          <p data-bind="text: name.text"></p></a></div>
+    </nav>
+    <div class="container">
+      <div class="map-container">
+        <div id="map" class="map"></div>
+      </div>
     </div>
     <script data-main="app/js/config" src="bower_components/requirejs/require.js"></script>
     <script src="//localhost:35729/livereload.js"></script>

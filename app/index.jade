@@ -3,17 +3,28 @@ html
 	head
 		title Upcoming Events
 
-		link(href="bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet")
+		link(href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+		link(href="bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet")
 		link(href="dest/css/main.css" rel="stylesheet")
+	
 	body
-
-		.panel
-			.search
-				input(type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search")
-				button(type="submit" name="action" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findEvents}" class="btn waves-effect waves-light")
 		
-		.map-container
-			#map.map
+		nav(class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation")
+			.search
+				form
+					.form-group
+						input(type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search" class="form-control")
+					button(type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findAndSave}" class="btn btn-default")
+
+			div(data-bind="foreach: events" class="list-group events")
+				a(class="list-group-item")
+					span(data-bind="if: logo" class="img-wrap")
+						img(data-bind="attr: {src: logo.url}")
+					p(data-bind="text: name.text")
+
+		.container
+			.map-container
+				#map.map
 
 		script(data-main="app/js/config" src="bower_components/requirejs/require.js")
 		script(src="//localhost:35729/livereload.js")

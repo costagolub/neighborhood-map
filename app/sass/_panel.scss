@@ -1,10 +1,17 @@
-.panel {
-	position: absolute;
-	z-index: 2;
-	left: 0;
-	top: 0;
-	width: 300px;
-	bottom: 0;
+.search {
 	padding: 20px;
-	background: #eee;
+}
+
+.events {
+	a {
+		min-height: 50px;
+	}
+	.img-wrap {
+		float: left;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		overflow: hidden;
+		margin-right: 15px;
+	}
 }
