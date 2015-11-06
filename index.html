@@ -13,7 +13,9 @@
           <div class="form-group">
             <input type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search" class="form-control">
           </div>
-          <button type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findAndSave}" class="btn btn-default"></button>
+          <button type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findEvents}" class="btn btn-default"></button>
+          <button type="submit" data-bind="enable: prevBtnEnable, event: {click: prevEvents}" class="btn btn-default">Prev</button>
+          <button type="submit" data-bind="enable: nextBtnEnable, event: {click: nextEvents}" class="btn btn-default">Next</button>
         </form>
       </div>
       <div data-bind="foreach: events" class="list-group events"><a class="list-group-item"><span data-bind="if: logo" class="img-wrap"><img data-bind="attr: {src: logo.url}"></span>

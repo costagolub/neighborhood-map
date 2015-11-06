@@ -1,13 +1,16 @@
 'use strict';
-define(['knockout', 'ui_strings', 'http', 'connectAPI', 'app/model'], 
-	function(ko, uiStrings, http, connectAPI, model) {
+define(['knockout', 'ui_strings', 'connectAPI', 'app/model'], 
+	function(ko, uiStrings, connect, model) {
 
 	// Events
 	function Events() {
-		this.placeholderText = uiStrings.placeholderText;
-		this.searchBtnText = uiStrings.searchBtnText;
-		this.searchBtnEnable = ko.observable(false);
+		this.placeholderText = ko.observable(uiStrings.placeholderText);
+		this.searchBtnText = ko.observable(uiStrings.searchBtnText);
 		this.cityName = ko.observable('');
+		this.searchBtnEnable = ko.observable(false);
+		this.prevBtnEnable = ko.observable(false);
+		this.nextBtnEnable = ko.observable(false);
+
 		this.isBtnEnabled = ko.computed(function() {
 			if (this.cityName() === '') {
 				this.searchBtnEnable(false);
@@ -16,18 +19,69 @@ define(['knockout', 'ui_strings', 'http', 'connectAPI', 'app/model'],
 			}
 		}, this);
 
-		this.events = model.content.events;
-
-		this.findAndSave = function() {
-			var that = this;
-			connectAPI.getEvents(that.cityName()).then(function(resolve, reject) {
-				var events = JSON.parse(resolve);
-
-				model.add(events);
-				console.log(that.events());
-			});
+		this.nextEvents = function() {
+			this.loadMore(this.cityName(), ++this.current);
 		};
+		this.prevEvents = function() {
+			this.loadMore(this.cityName(), --this.current);
+		};
+
+		this.events = model.content.events;
+		this.pagination = model.content.pagination;
 	}
 
+	Events.prototype = {
+		loadMore: function(city, pageNumbers) {
+			var that = this;
+			this.searchBtnEnable(false);
+			this.prevBtnEnable(false);
+			this.nextBtnEnable(false);	
+
+			connect.getEventsByCity(city, pageNumbers).then(function(resolve, reject) {
+				var events = JSON.parse(resolve);
+				model.add(events); // save to model					
+
+				console.log('load ', events); // debug
+				return events;
+			}).then(function(events, reject) {
+				that.searchBtnEnable(true);
+				that.prevBtnEnable(true);
+				that.nextBtnEnable(true);	
+
+				that.pagesInit(events);
+			});
+		},
+
+		findEvents : function() {	
+			var pageNumber = 1; // start at 1st page
+			this.loadMore(this.cityName(), pageNumber);
+		},
+
+		pagesInit: function(events) {
+			var pg = events.pagination; // private
+
+			this.current = pg.page_number;
+			this.total = pg.page_count;
+
+			console.log(this); // debug
+
+			if (this.current == 1) {
+				this.prevBtnEnable(false);
+				if (this.total > 1) {
+					this.nextBtnEnable(true);
+				} else {
+					this.nextBtnEnable(false);
+				}
+			} else if (this.current == this.total) {
+				this.prevBtnEnable(true);
+				this.nextBtnEnable(false);
+			} else {
+				this.prevBtnEnable(true);
+				this.nextBtnEnable(true);
+			}
+		}
+	};
+
 	return Events;
+
 });

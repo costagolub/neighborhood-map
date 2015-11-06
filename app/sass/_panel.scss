@@ -1,5 +1,5 @@
 .search {
-	padding: 20px;
+	padding: 20px 15px;
 }
 
 .events {
@@ -8,10 +8,12 @@
 	}
 	.img-wrap {
 		float: left;
-		border-radius: 50%;
-		width: 30px;
-		height: 30px;
 		overflow: hidden;
-		margin-right: 15px;
+		img {
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			margin-right: 15px;
+		}
 	}
 }

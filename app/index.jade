@@ -14,7 +14,10 @@ html
 				form
 					.form-group
 						input(type="text" data-bind="attr: {placeholder: placeholderText}, value: cityName" name="search" class="form-control")
-					button(type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findAndSave}" class="btn btn-default")
+					button(type="submit" data-bind="text : searchBtnText, enable: searchBtnEnable, event: {click: findEvents}" class="btn btn-default")
+
+					button(type="submit" data-bind="enable: prevBtnEnable, event: {click: prevEvents}" class="btn btn-default") Prev
+					button(type="submit" data-bind="enable: nextBtnEnable, event: {click: nextEvents}" class="btn btn-default") Next
 
 			div(data-bind="foreach: events" class="list-group events")
 				a(class="list-group-item")
