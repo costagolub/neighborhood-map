@@ -1,22 +1,60 @@
 'use strict';
-define(['load-map-async', 'exports'], function(google, exports) {
+define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, exports, model, ko) {
 
-	// fake initMap
-	function initMap() {
-	  var myLatLng = {lat: -25.363, lng: 131.044};
 
-	  var map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 4,
-	    center: myLatLng
-	  });
+ 	function Map() {
+ 		this.map = null;
+ 	};
 
-	  var marker = new google.maps.Marker({
-	    position: myLatLng,
-	    map: map,
-	    title: 'Hello World!'
-	  });
-	}
+ 	Map.prototype = {
+ 		customBindingGoogleMap: function () {
+ 			var that = this;
 
-	exports.initMap = initMap;
+ 			ko.bindingHandlers.googlemap = {
+		    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+			    var value = valueAccessor(),
+			        mapOptions = {
+			          zoom: 3,
+			        	center: new google.maps.LatLng(value.centerLat, value.centerLon),
+			          mapTypeId: google.maps.MapTypeId.ROADMAP
+			        };
+			        
+			        that.map = new google.maps.Map(element, mapOptions);
+			        that.map.setTilt(45);
+			         
+			   },
+			   update: function(element, valueAccessor, allBindings, viewModel) {
+			   	that.map = new google.maps.Map(element, {});
+
+			   		var value = ko.utils.unwrapObservable(valueAccessor()),
+			   				bounds = new google.maps.LatLngBounds(), //instantiate bounds
+			   				events = value.locations().map(function(events) {
+			   					return events.venue
+			   				}); 
+
+			   		for (var event in events) {
+			        var latLng = new google.maps.LatLng(
+			        	ko.utils.unwrapObservable(events[event].latitude), 
+				        ko.utils.unwrapObservable(events[event].longitude)
+				      );
+
+			        bounds.extend(latLng); // extend bounds
+
+			        console.log(that.map);
+			        var marker = new google.maps.Marker({
+			         	position: latLng,
+			         	map: that.map
+			        });
+
+			        that.map.fitBounds(bounds); // fit bounds
+			      }
+
+			   }
+			};
+ 		}
+ 	};
+
+
+	return new Map;
 
 });

@@ -1,6 +1,6 @@
 'use strict';
-define(['knockout', 'ui_strings', 'connectAPI', 'app/model'], 
-	function(ko, uiStrings, connect, model) {
+define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'], 
+	function(ko, uiStrings, connect, model, map) {
 
 	// Events
 	function Events() {
@@ -10,6 +10,11 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model'],
 		this.searchBtnEnable = ko.observable(false);
 		this.prevBtnEnable = ko.observable(false);
 		this.nextBtnEnable = ko.observable(false);
+		
+		this.locations = ko.observableArray([
+        {name: "Cleveland", latitude:41.48 , longitude:-81.67},
+        {name: "Parma", latitude: 41.40, longitude: -81.73}
+    ]);
 
 		this.isBtnEnabled = ko.computed(function() {
 			if (this.cityName() === '') {

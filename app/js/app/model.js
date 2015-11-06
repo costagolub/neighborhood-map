@@ -4,7 +4,7 @@ define(['knockout', 'exports'], function(ko, exports) {
 	// MODEL
 	var model = {
 		content: {
-			events: ko.observable(),
+			events: ko.observableArray(),
 			pagination: ko.observable()
 		},
 		add : function(obj) {
