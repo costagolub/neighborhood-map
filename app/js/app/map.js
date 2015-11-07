@@ -38,6 +38,8 @@ define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, 
 			   				infoWindow = new google.maps.InfoWindow(),
 			   				infoWindowContent = model.content.events();
 
+			   		model.cleanArray('markers'); // clean markers Array before poppulate it
+
 			   		for (var event in events) {
 			        var latLng = new google.maps.LatLng(
 			        	ko.utils.unwrapObservable(events[event].latitude), 
@@ -48,9 +50,12 @@ define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, 
 			         	position: latLng,
 			         	map: map
 			        });
-			      
+
+			        model.push('markers', marker); // push markers to model
+
 			        google.maps.event.addListener(marker, 'click', (function(marker, i) {
 			            return function() {
+			            		// console.log('Load marker ', infoWindowContent[i]); // debug
 			                infoWindow.setContent(infoWindowContent[i].description.html);
 			                infoWindow.open(map, marker);
 			            }
@@ -59,8 +64,6 @@ define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, 
 
 			        bounds.extend(latLng); // extend bounds
 			        map.fitBounds(bounds); // fit bounds
-
-			        console.log(that.map); // debug
 			      }
 			  }
 			};
@@ -69,7 +72,5 @@ define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, 
  	Map.prototype.constructor = Map;
 
 	return Map;
-
-	return initializeMap;
 
 });

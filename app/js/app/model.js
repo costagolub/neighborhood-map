@@ -5,11 +5,21 @@ define(['knockout', 'exports'], function(ko, exports) {
 	var model = {
 		content: {
 			events: ko.observableArray(),
-			pagination: ko.observable()
+			pagination: ko.observable(),
+			markers: ko.observableArray()
 		},
-		add : function(obj) {
-			this.content.events(obj.events);
-			this.content.pagination(obj.pagination);
+		add : function(type, obj) {
+			this.content[type](obj);
+		},
+		push: function(type, obj) {
+			this.content[type].push(obj);
+		},
+		cleanArray: function(type) {
+			var isArray = Array.isArray(this.content[type]());
+			if (isArray) {
+				this.content[type]().length = 0;
+				console.log('Clean Marker Array');
+			}
 		}
 	};
 

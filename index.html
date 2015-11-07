@@ -18,7 +18,7 @@
           <button type="submit" data-bind="enable: nextBtnEnable, event: {click: nextEvents}" class="btn btn-default">Next</button>
         </form>
       </div>
-      <div data-bind="foreach: events" class="list-group events"><a class="list-group-item"><span data-bind="if: logo" class="img-wrap"><img data-bind="attr: {src: logo.url}"></span>
+      <div data-bind="foreach: events" class="list-group events"><a href="#" data-bind="click: function() {$parent.isActive($index);$parent.showInfo($data, $index)}, css: $index() === $parent.isActiveEvent() ? 'active' : ''" class="list-group-item"><span data-bind="if: logo" class="img-wrap"><img data-bind="attr: {src: logo.url}"></span>
           <p data-bind="text: name.text"></p></a></div>
     </nav>
     <div class="container">

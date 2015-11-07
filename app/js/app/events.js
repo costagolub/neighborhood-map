@@ -1,6 +1,6 @@
 'use strict';
-define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'], 
-	function(ko, uiStrings, connect, model, map) {
+define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map', 'load-map-async'], 
+	function(ko, uiStrings, connect, model, map, google) {
 
 	// Events
 	function Events() {
@@ -10,6 +10,7 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'],
 		this.searchBtnEnable = ko.observable(false);
 		this.prevBtnEnable = ko.observable(false);
 		this.nextBtnEnable = ko.observable(false);
+		this.isActiveEvent = ko.observable(false);
 
 		this.isBtnEnabled = ko.computed(function() {
 			if (this.cityName() === '') {
@@ -39,7 +40,9 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'],
 
 			connect.getEventsByCity(city, pageNumbers).then(function(resolve, reject) {
 				var events = JSON.parse(resolve);
-				model.add(events); // save to model					
+
+				model.add('events', events.events); // save events to model
+				model.add('pagination', events.pagination); // save pagination to model						
 
 				console.log('load ', events); // debug
 				return events;
@@ -79,6 +82,15 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'],
 				this.prevBtnEnable(true);
 				this.nextBtnEnable(true);
 			}
+		},
+
+		isActive : function(index) {
+			this.isActiveEvent(index());		
+		},
+
+		showInfo: function(obj, index, event) {
+			var currentMarker = model.content.markers()[index()]; 
+			google.maps.event.trigger(currentMarker, 'click');
 		}
 	};
 	Events.constructor = Events;
