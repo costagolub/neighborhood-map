@@ -2,6 +2,7 @@
 define(['exports', 'http'], function(exports, http) {
 	
 	function eventAPI() {
+		// make these variables private
 		var APIPublicKey = 'JVDBNBWYWNHIAEGR67OK',
 				externalAPIURL = 'https://www.eventbriteapi.com/v3/';
 

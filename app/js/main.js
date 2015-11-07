@@ -1,9 +1,10 @@
 'use strict';
 
-require(['knockout', 'app/events', 'app/map'], function(ko, Events, map) {
+require(['knockout', 'app/events', 'app/map'], function(ko, Events, Map) {
 	// ViewModels
 	var events = new Events();
-	map.customBindingGoogleMap();
+	var map = new Map; 
 
+	map.customBindingGoogleMap();
 	ko.applyBindings(events);
 });

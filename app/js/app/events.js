@@ -10,11 +10,6 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'],
 		this.searchBtnEnable = ko.observable(false);
 		this.prevBtnEnable = ko.observable(false);
 		this.nextBtnEnable = ko.observable(false);
-		
-		this.locations = ko.observableArray([
-        {name: "Cleveland", latitude:41.48 , longitude:-81.67},
-        {name: "Parma", latitude: 41.40, longitude: -81.73}
-    ]);
 
 		this.isBtnEnabled = ko.computed(function() {
 			if (this.cityName() === '') {
@@ -86,6 +81,7 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map'],
 			}
 		}
 	};
+	Events.constructor = Events;
 
 	return Events;
 
