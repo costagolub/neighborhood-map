@@ -1,6 +1,6 @@
 'use strict';
-define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map', 'load-map-async'], 
-	function(ko, uiStrings, connect, model, map, google) {
+define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map', 'gmaps'], 
+	function(ko, uiStrings, connect, model, map, gmaps) {
 
 	// Events
 	function Events() {
@@ -90,7 +90,7 @@ define(['knockout', 'ui_strings', 'connectAPI', 'app/model', 'app/map', 'load-ma
 
 		showInfo: function(obj, index, event) {
 			var currentMarker = model.content.markers()[index()]; 
-			google.maps.event.trigger(currentMarker, 'click');
+			gmaps.event.trigger(currentMarker, 'click');
 		}
 	};
 	Events.constructor = Events;

@@ -1,9 +1,9 @@
 'use strict';
-define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, exports, model, ko) {
+define(['gmaps', 'exports', 'app/model', 'knockout'], function(gmaps, exports, model, ko) {
 
  	function Map() {
  		this.zoom = 2;
- 		this.mapType = google.maps.MapTypeId.ROADMAP;
+ 		this.mapType = gmaps.MapTypeId.ROADMAP;
  		this.setTilt = 45;
  	};
 
@@ -17,43 +17,43 @@ define(['load-map-async', 'exports', 'app/model', 'knockout'], function(google, 
 			    var value = ko.utils.unwrapObservable(valueAccessor()),
 			        mapOptions = {
 			          zoom: that.zoom,
-			        	center: new google.maps.LatLng(value.centerLat, value.centerLon),
+			        	center: new gmaps.LatLng(value.centerLat, value.centerLon),
 			          mapTypeId: that.mapType
 			        };
 			        
 			        // resolving the problem of initiation of the map ?
 			       	setTimeout(function() {
-			       		map = new google.maps.Map(element, mapOptions);
+			       		map = new gmaps.Map(element, mapOptions);
 			        	map.setTilt(that.setTilt);  
 			       	}, 0);
 			  },
 			  update: function(element, valueAccessor, allBindings, viewModel) {
-			  	map = new google.maps.Map(element, {}); // clean map ?
+			  	map = new gmaps.Map(element, {}); // clean map ?
 
 			   		var value = ko.utils.unwrapObservable(valueAccessor()),
-			   				bounds = new google.maps.LatLngBounds(),
+			   				bounds = new gmaps.LatLngBounds(),
 			   				events = value.locations().map(function(events) {
 			   					return events.venue
 			   				}),
-			   				infoWindow = new google.maps.InfoWindow(),
+			   				infoWindow = new gmaps.InfoWindow(),
 			   				infoWindowContent = model.content.events();
 
 			   		model.cleanArray('markers'); // clean markers Array before poppulate it
 
 			   		for (var event in events) {
-			        var latLng = new google.maps.LatLng(
+			        var latLng = new gmaps.LatLng(
 			        	ko.utils.unwrapObservable(events[event].latitude), 
 				        ko.utils.unwrapObservable(events[event].longitude)
 				      );
 
-			        var marker = new google.maps.Marker({
+			        var marker = new gmaps.Marker({
 			         	position: latLng,
 			         	map: map
 			        });
 
 			        model.push('markers', marker); // push markers to model
 
-			        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			        gmaps.event.addListener(marker, 'click', (function(marker, i) {
 			            return function() {
 			            		// console.log('Load marker ', infoWindowContent[i]); // debug
 			                infoWindow.setContent(infoWindowContent[i].description.html);
