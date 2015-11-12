@@ -11,11 +11,15 @@ module.exports = function(grunt) {
 	      }
 	    }
 	  },
+	  clean: ["dest"],
     requirejs: {
 	    compile: {
 	      options: {
 	        baseUrl: "app/js",
 	        mainConfigFile: "app/js/config.js",
+	        findNestedDependencies: true,
+	        fileExclusionRegExp: /^\./,
+          inlineText: true,
 	        name: 'main',
 	        include: ['config'],
 	        out: "dest/js/main.js"
@@ -67,8 +71,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	// register tasks
 	grunt.registerTask('default', ['connect', 'jade', 'watch']);
-	grunt.registerTask('build', ['requirejs', 'jade', 'sass']);
+	grunt.registerTask('build', ['clean', 'sass', 'jade', 'requirejs']);
 };
