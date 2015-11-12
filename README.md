@@ -15,5 +15,6 @@ ___
 + [Bootstrap](http://getbootstrap.com/) 
 + [Jasny Bootstrap](http://www.jasny.net/bootstrap/)
 + [RequireJS](http://requirejs.org/)
++ [KnockoutJS](http://knockoutjs.com/)
 + [Google map API](https://developers.google.com/maps/)
 + [Eventbrite API](http://developer.eventbrite.com/)
