@@ -1,7 +1,7 @@
 # Neighborhood map - upcoming events 
 ___
 
-You can look at the demo here [https://map-events.herokuapp.com/](https://map-events.herokuapp.com/)
+You can look at the demo here [http://costagolub.github.io/neighborhood-map/](http://costagolub.github.io/neighborhood-map/)
 
 You can search for upcoming events in the selected city (typed in the input field). You could go through all events by using pagination and see the information about interesting one. 
 
