@@ -62,6 +62,20 @@ module.exports = function(grunt) {
 	  			}]
 	  	}
 	  },
+	  env: {
+      src: {
+          NODE_ENV : 'PRODUCTION'
+      },
+      dev : {
+          NODE_ENV : 'DEVELOPMENT'
+      }
+    },
+    preprocess : {
+      src : {
+        src : 'index.html',
+        dest : 'index.html'
+      }
+    },
     watch: {
     	options: {
     		livereload: true
@@ -89,8 +103,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-preprocess');
+	grunt.loadNpmTasks('grunt-env');
 
 	// register tasks
-	grunt.registerTask('default', ['connect', 'jade', 'watch']);
-	grunt.registerTask('build', ['clean', 'sass', 'jade', 'copy', 'requirejs']);
+	grunt.registerTask('default', ['env:dev', 'connect', 'jade', 'preprocess:src', 'watch']);
+	grunt.registerTask('build', ['env:src', 'clean', 'sass', 'jade', 'preprocess:src', 'copy', 'requirejs']);
 };
