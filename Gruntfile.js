@@ -46,6 +46,22 @@ module.exports = function(grunt) {
 	      }
 	    }
 	  },
+	  copy: {
+	  	main: {
+	  		files: [
+	  			{
+	  				expand: true,
+	  				flatten: true,
+	  				src: ['bower_components/bootstrap/dist/css/bootstrap.min.css', 'bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css'],
+	  				dest: 'dest/css'
+	  			}, {
+	  				expand: true,
+	  				flatten: true,
+	  				src: ['bower_components/requirejs/require.js'],
+	  				dest: 'dest/js'
+	  			}]
+	  	}
+	  },
     watch: {
     	options: {
     		livereload: true
@@ -72,8 +88,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// register tasks
 	grunt.registerTask('default', ['connect', 'jade', 'watch']);
-	grunt.registerTask('build', ['clean', 'sass', 'jade', 'requirejs']);
+	grunt.registerTask('build', ['clean', 'sass', 'jade', 'copy', 'requirejs']);
 };
